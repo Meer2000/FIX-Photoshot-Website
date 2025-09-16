@@ -1,0 +1,192 @@
+ @if (data(); as hero) {
+  <section 
+    id="home" 
+    class="relative w-full overflow-hidden group/hero px-4 sm:px-6 lg:px-8 bg-white pb-12"
+  >
+    <div 
+      class="relative overflow-hidden rounded-2xl transition-all duration-300 ease-in-out shadow-[0px_0px_11px_0px_rgba(0,0,0,0.3)] lg:shadow-[0px_0px_15px_0px_rgba(0,0,0,0.3)]" 
+      [style.aspect-ratio]="displayAspectRatio()"
+      (dragover)="handleDragOver($event)"
+      (dragleave)="handleDragLeave($event)"
+      (drop)="handleDrop($event)"
+    >
+      <!-- BANNERS -->
+      @for (banner of hero.banners; track banner.id; let i = $index) {
+        <div 
+          class="absolute inset-0 transition-opacity duration-700 ease-in-out"
+          [class.opacity-100]="currentIndex() === i"
+          [class.opacity-0]="currentIndex() !== i"
+          [class.pointer-events-none]="currentIndex() !== i"
+        >
+          <a [href]="banner.link" (click)="handleBannerClick($event, banner.link)" [class.cursor-default]="isEditMode()">
+             @if (isEditMode()) {
+              @let currentView = editModeService.currentBannerEditView();
+              @if (currentView === 'desktop') {
+                <img 
+                  [src]="banner.desktopImage || 'https://iili.io/J151Sps.png'" 
+                  alt="Desktop slide {{ i + 1 }} (Edit view)" 
+                  class="w-full h-full object-cover rounded-2xl" 
+                />
+              } @else {
+                <img 
+                  [src]="banner.mobileImage || 'https://iili.io/J151Sps.png'" 
+                  alt="Mobile slide {{ i + 1 }} (Edit view)" 
+                  class="w-full h-full object-cover rounded-2xl" 
+                />
+              }
+            } @else {
+              <!-- Public view with responsive images -->
+              <img 
+                [src]="banner.desktopImage || 'https://iili.io/J151Sps.png'" 
+                alt="Desktop slide {{ i + 1 }}" 
+                class="hidden lg:block w-full h-full object-cover rounded-2xl" 
+              />
+              <img 
+                [src]="banner.mobileImage || 'https://iili.io/J151Sps.png'" 
+                alt="Mobile slide {{ i + 1 }}" 
+                class="block lg:hidden w-full h-full object-cover rounded-2xl" 
+              />
+            }
+          </a>
+        </div>
+      }
+
+      <!-- EDIT MODE UI OVERLAY -->
+      @if (isEditMode()) {
+        @let currentView = editModeService.currentBannerEditView();
+        @let currentBanner = activeBanner();
+        @let hasImageForView = currentView === 'desktop' ? !!currentBanner?.desktopImage : !!currentBanner?.mobileImage;
+        
+        <div 
+          class="absolute inset-0 flex flex-col items-center justify-center bg-black/30 p-4 transition-opacity duration-300 opacity-0 group-hover/hero:opacity-100" 
+          [class.bg-blue-900/40]="isDraggingOver()"
+          [class.opacity-100]="isDraggingOver()"
+        >
+          
+          <!-- Dropzone text -->
+          @if (isDraggingOver()) {
+            <div class="text-white text-center pointer-events-none">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M12 15l-4-4m0 0l4-4m-4 4h12" /></svg>
+              <p class="mt-4 text-xl font-semibold">Drop image to upload</p>
+              <p class="text-sm">for the {{ currentView }} view</p>
+            </div>
+          } @else {
+            <!-- UI Container for Buttons -->
+            <div class="editable-ui-container absolute inset-0 flex flex-col items-center justify-center gap-4">
+              @if (!hasImageForView) {
+                 <div class="text-center text-white p-6 bg-black/20 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                    <p class="font-semibold mt-2">No {{currentView}} image</p>
+                    <p class="text-sm text-slate-300">Drop an image or click below</p>
+                 </div>
+              }
+              <div class="flex items-center gap-3">
+                 <button (click)="replaceImage()" type="button" class="bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold py-2 px-5 rounded-2xl flex items-center gap-2 shadow-xl hover:bg-white/40 active:scale-95 transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.414l-1.293 1.293a1 1 0 01-1.414-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L13 9.414V13H5.5z" /><path d="M9 13h2v5a1 1 0 11-2 0v-5z" /></svg>
+                    <span>{{ hasImageForView ? 'Replace' : 'Upload' }} Image</span>
+                 </button>
+                 @if(hasImageForView) {
+                    <button (click)="editImage()" type="button" class="bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold p-2.5 rounded-2xl shadow-xl hover:bg-white/40 active:scale-95 transition-all duration-300" title="Crop & Edit Image">
+                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg>
+                    </button>
+                     <button (click)="removeImage()" type="button" class="bg-red-500/40 backdrop-blur-md border border-white/20 text-white font-semibold p-2.5 rounded-2xl shadow-xl hover:bg-red-500/60 active:scale-95 transition-all duration-300" title="Remove {{currentView}} image">
+                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 011 1v6a1 1 0 11-2 0V9a1 1 0 011-1zm4 0a1 1 0 011 1v6a1 1 0 11-2 0V9a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+                    </button>
+                 }
+              </div>
+            </div>
+          }
+          <input type="file" #bannerFileInput (change)="handleFileSelection($event)" accept="image/*" class="hidden">
+          
+          <!-- View Toggle (Top Left) -->
+          <div class="editable-ui-container absolute top-4 left-4 bg-black/50 p-1 rounded-full flex items-center gap-1 text-sm" [class.hidden]="isDraggingOver()">
+            <button (click)="editModeService.setBannerEditView('desktop')" type="button" class="px-3 py-1 rounded-full" [class.bg-white]="editModeService.currentBannerEditView() === 'desktop'" [class.text-slate-800]="editModeService.currentBannerEditView() === 'desktop'" [class.text-white]="editModeService.currentBannerEditView() !== 'desktop'">Desktop</button>
+            <button (click)="editModeService.setBannerEditView('mobile')" type="button" class="px-3 py-1 rounded-full" [class.bg-white]="editModeService.currentBannerEditView() === 'mobile'" [class.text-slate-800]="editModeService.currentBannerEditView() === 'mobile'" [class.text-white]="editModeService.currentBannerEditView() !== 'mobile'">Mobile</button>
+          </div>
+          
+          <!-- Aspect Ratio Controls (Top Right) -->
+          <div class="editable-ui-container absolute top-4 right-4 bg-black/50 p-1 rounded-full flex items-center gap-2 text-sm text-white" [class.hidden]="isDraggingOver()">
+            <span class="pl-2 text-xs">Aspect Ratio:</span>
+            <button (click)="setBannerAspectRatioFromCurrentImage()" type="button" class="px-3 py-1 rounded-full bg-white/20 hover:bg-white/40" title="Set aspect ratio from current {{editModeService.currentBannerEditView()}} image">Use Current</button>
+          </div>
+
+          <!-- Banner Controls (Bottom Right) -->
+          <div class="editable-ui-container absolute bottom-4 right-4 flex items-center gap-2" [class.hidden]="isDraggingOver()">
+            <button (click)="addBanner()" class="bg-white/20 backdrop-blur-md border border-white/30 text-white p-2.5 rounded-full shadow-xl hover:bg-white/40 active:scale-95 transition-all duration-300" title="Add new slide">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+            </button>
+            <button (click)="removeCurrentBanner()" class="bg-white/20 backdrop-blur-md border border-white/30 text-white p-2.5 rounded-full shadow-xl hover:bg-white/40 active:scale-95 transition-all duration-300" title="Remove current slide">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 011 1v6a1 1 0 11-2 0V9a1 1 0 011-1zm4 0a1 1 0 011 1v6a1 1 0 11-2 0V9a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- IMAGE COUNTER -->
+      @if (!isEditMode() && hero.banners.length > 1) {
+        <div class="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/50 text-slate-800 font-semibold text-xs px-2.5 py-0.5 sm:text-sm sm:px-3 sm:py-1 rounded-full backdrop-blur-sm">
+          {{ currentIndex() + 1 }} / {{ hero.banners.length }}
+        </div>
+      }
+
+      <!-- NAVIGATION ARROWS -->
+      @if (!isEditMode() && hero.banners.length > 1) {
+        <button (click)="previousBanner()" type="button" class="absolute top-1/2 left-3 -translate-y-1/2 p-2 bg-black/20 backdrop-blur-sm rounded-full text-white hover:bg-black/40 hover:scale-105 transition-all duration-200 opacity-0 group-hover/hero:opacity-100" aria-label="Previous slide">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button (click)="nextBanner()" type="button" class="absolute top-1/2 right-3 -translate-y-1/2 p-2 bg-black/20 backdrop-blur-sm rounded-full text-white hover:bg-black/40 hover:scale-105 transition-all duration-200 opacity-0 group-hover/hero:opacity-100" aria-label="Next slide">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </button>
+      }
+
+      <!-- NAVIGATION DOTS -->
+      @if (!isEditMode() && hero.banners.length > 1) {
+        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 hidden lg:flex space-x-2">
+          @for(banner of hero.banners; track banner.id; let i = $index) {
+            <button (click)="goToBanner(i)" class="w-2 h-2 rounded-full transition" [class.bg-white]="currentIndex() === i" [class.bg-white/50]="currentIndex() !== i" [attr.aria-label]="'Go to slide ' + (i + 1)"></button>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- THUMBNAIL BAR FOR EDIT MODE -->
+    @if (isEditMode() && hero.banners.length > 0) {
+      <div class="relative bg-white border-t border-slate-200 opacity-0 group-hover/hero:opacity-100 transition-opacity duration-300">
+        <div class="flex items-center justify-center space-x-3 overflow-x-auto p-3">
+          @for (banner of hero.banners; track banner.id; let i = $index) {
+            @let thumbnailSrc = editModeService.currentBannerEditView() === 'desktop' ? banner.desktopImage : banner.mobileImage;
+            <button 
+              (click)="goToBanner(i)"
+              type="button"
+              class="relative flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+              [class.ring-4]="currentIndex() === i"
+              [class.ring-blue-500]="currentIndex() === i"
+              [class.scale-105]="currentIndex() === i"
+              [class.ring-offset-2]="currentIndex() === i"
+              [class.ring-offset-white]="currentIndex() === i"
+              [attr.aria-label]="'Go to slide ' + (i + 1)"
+            >
+              @if (thumbnailSrc) {
+                <img 
+                  [src]="thumbnailSrc" 
+                  [alt]="'Thumbnail for slide ' + (i + 1) + ' (' + editModeService.currentBannerEditView() + ')'"
+                  class="w-full h-full object-cover pointer-events-none"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+              } @else {
+                <div class="w-full h-full bg-slate-200 flex items-center justify-center pointer-events-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                </div>
+              }
+              <span 
+                class="absolute bottom-1 right-2 font-bold text-sm pointer-events-none"
+                [class]="thumbnailSrc ? 'text-white' : 'text-slate-600'"
+              >{{ i + 1 }}</span>
+            </button>
+          }
+        </div>
+      </div>
+    }
+  </section>
+}

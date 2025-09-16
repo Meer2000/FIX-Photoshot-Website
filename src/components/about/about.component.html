@@ -1,0 +1,153 @@
+
+ @if(data(); as about) {
+<section id="about" class="py-20 bg-white overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div [class]="'transition-all duration-1000 ease-out mb-16 ' + (isVisible() ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12')">
+      <h2 
+        class="text-3xl lg:text-4xl font-bold text-slate-800 text-center"
+        appEditable
+        editableType="text"
+        [editablePath]="'about.heading'"
+        [class.bg-clip-text]="about.headingStyle?.isGradient"
+        [class.text-transparent]="about.headingStyle?.isGradient"
+        [style.background-image]="about.headingStyle?.isGradient ? 'linear-gradient(to right, ' + (about.headingStyle?.gradientFrom || '#3b82f6') + ', ' + (about.headingStyle?.gradientTo || '#14b8a6') + ')' : null"
+        [style.color]="about.headingStyle?.isGradient ? null : about.headingStyle?.color"
+        [style.font-size]="about.headingStyle?.fontSize"
+        [style.font-weight]="about.headingStyle?.fontWeight"
+        [style.font-style]="about.headingStyle?.fontStyle"
+        [style.text-align]="about.headingStyle?.textAlign"
+        [style.opacity]="about.headingStyle?.opacity"
+        [style.letter-spacing]="about.headingStyle?.letterSpacing"
+        [style.line-height]="about.headingStyle?.lineHeight"
+        [innerHTML]="about.heading"
+        >
+      </h2>
+    </div>
+
+    <div 
+      class="grid grid-cols-1 items-center"
+      [class.md:grid-cols-2]="about.image"
+      [class.gap-12]="about.image"
+      [class.md:gap-16]="about.image"
+    >
+      
+      <!-- Left Column: Image -->
+      @if (about.image) {
+        <div [class]="'relative group transition-all duration-1000 ease-out ' + (isVisible() ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12')">
+          <img [src]="about.image" alt="Profile image" class="rounded-2xl shadow-xl w-full h-auto aspect-square object-cover" width="400" height="400">
+          @if(isEditMode()) {
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-2xl">
+              <button (click)="triggerImageChange()" type="button" class="bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold py-2 px-4 rounded-2xl flex items-center gap-2 shadow-xl hover:bg-white/40 active:scale-95 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.414l-1.293 1.293a1 1 0 01-1.414-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L13 9.414V13H5.5z" /><path d="M9 13h2v5a1 1 0 11-2 0v-5z" /></svg>
+                <span>Change Image</span>
+             </button>
+            </div>
+            <input type="file" #profileImageInput (change)="handleFileSelection($event)" accept="image/*" class="hidden">
+          }
+        </div>
+      }
+      
+      <!-- Text Content -->
+      <div 
+        class="transition-all duration-1000 ease-out"
+        [class.opacity-100]="isVisible()"
+        [class.opacity-0]="!isVisible()"
+        [class.translate-x-0]="isVisible() && about.image"
+        [class.translate-x-12]="!isVisible() && about.image"
+        [class.translate-y-0]="isVisible() && !about.image"
+        [class.translate-y-12]="!isVisible() && !about.image"
+        [class.max-w-4xl]="!about.image"
+        [class.mx-auto]="!about.image"
+        [class.text-center]="!about.image"
+      >
+        
+        <p 
+          class="text-lg text-slate-600 leading-relaxed whitespace-pre-line"
+          [class.text-left]="about.image"
+          appEditable
+          editableType="text"
+          [editablePath]="'about.paragraph'"
+          [class.bg-clip-text]="about.paragraphStyle?.isGradient"
+          [class.text-transparent]="about.paragraphStyle?.isGradient"
+          [style.background-image]="about.paragraphStyle?.isGradient ? 'linear-gradient(to right, ' + (about.paragraphStyle?.gradientFrom || '#3b82f6') + ', ' + (about.paragraphStyle?.gradientTo || '#14b8a6') + ')' : null"
+          [style.color]="about.paragraphStyle?.isGradient ? null : about.paragraphStyle?.color"
+          [style.font-size]="about.paragraphStyle?.fontSize"
+          [style.font-weight]="about.paragraphStyle?.fontWeight"
+          [style.font-style]="about.paragraphStyle?.fontStyle"
+          [style.text-align]="about.paragraphStyle?.textAlign"
+          [style.opacity]="about.paragraphStyle?.opacity"
+          [style.letter-spacing]="about.paragraphStyle?.letterSpacing"
+          [style.line-height]="about.paragraphStyle?.lineHeight"
+          [innerHTML]="about.paragraph"
+          >
+        </p>
+        
+        <div class="flex items-center gap-4 mt-8" [class.justify-start]="about.image" [class.justify-center]="!about.image">
+          <h3 
+            class="text-lg sm:text-xl font-semibold text-slate-700"
+            appEditable
+            editableType="text"
+            [editablePath]="'about.expertiseHeading'"
+            [class.bg-clip-text]="about.expertiseHeadingStyle?.isGradient"
+            [class.text-transparent]="about.expertiseHeadingStyle?.isGradient"
+            [style.background-image]="about.expertiseHeadingStyle?.isGradient ? 'linear-gradient(to right, ' + (about.expertiseHeadingStyle?.gradientFrom || '#3b82f6') + ', ' + (about.expertiseHeadingStyle?.gradientTo || '#14b8a6') + ')' : null"
+            [style.color]="about.expertiseHeadingStyle?.isGradient ? null : about.expertiseHeadingStyle?.color"
+            [style.font-size]="about.expertiseHeadingStyle?.fontSize"
+            [style.font-weight]="about.expertiseHeadingStyle?.fontWeight"
+            [style.font-style]="about.expertiseHeadingStyle?.fontStyle"
+            [style.text-align]="about.expertiseHeadingStyle?.textAlign"
+            [style.opacity]="about.expertiseHeadingStyle?.opacity"
+            [style.letter-spacing]="about.expertiseHeadingStyle?.letterSpacing"
+            [style.line-height]="about.expertiseHeadingStyle?.lineHeight"
+            [innerHTML]="about.expertiseHeading"
+            >
+          </h3>
+          @if(isEditMode()) {
+            <button (click)="editModeService.addAboutExpertiseItem()" class="bg-slate-200 text-slate-600 hover:bg-slate-300 rounded-full p-1 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+            </button>
+          }
+        </div>
+
+        <div 
+          class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4"
+        >
+          @for(item of about.expertiseItems; track item.id; let i = $index) {
+            <div [class]="'group relative flex items-start text-left ' + (isVisible() ? 'animate-fade-in-slide-up' : 'opacity-0')" [style.animation-delay]="i * 150 + 'ms'">
+              <svg class="flex-shrink-0 h-6 w-6 text-blue-600 mr-3 mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l5-5z" clip-rule="evenodd" />
+              </svg>
+              <span 
+                class="text-slate-600 text-base sm:text-lg"
+                appEditable
+                editableType="text"
+                [editablePath]="'about.expertiseItems.' + i + '.text'"
+                [class.bg-clip-text]="item.textStyle?.isGradient"
+                [class.text-transparent]="item.textStyle?.isGradient"
+                [style.background-image]="item.textStyle?.isGradient ? 'linear-gradient(to right, ' + (item.textStyle?.gradientFrom || '#3b82f6') + ', ' + (item.textStyle?.gradientTo || '#14b8a6') + ')' : null"
+                [style.color]="item.textStyle?.isGradient ? null : item.textStyle?.color"
+                [style.font-size]="item.textStyle?.fontSize"
+                [style.font-weight]="item.textStyle?.fontWeight"
+                [style.font-style]="item.textStyle?.fontStyle"
+                [style.text-align]="item.textStyle?.textAlign"
+                [style.opacity]="item.textStyle?.opacity"
+                [style.letter-spacing]="item.textStyle?.letterSpacing"
+                [style.line-height]="item.textStyle?.lineHeight"
+                [innerHTML]="item.text"
+              ></span>
+              @if(isEditMode()) {
+                <button (click)="editModeService.removeAboutExpertiseItem(i)" class="absolute -right-2 top-1 bg-white p-1 rounded-full text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
+                </button>
+              }
+            </div>
+          }
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+</section>
+}

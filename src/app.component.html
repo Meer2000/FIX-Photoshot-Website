@@ -1,0 +1,70 @@
+@if (isLoading()) {
+    <div class="flex items-center justify-center h-screen bg-slate-100">
+        <div class="text-xl font-semibold text-slate-600 animate-pulse">Loading Website...</div>
+    </div>
+} @else if (displayData(); as data) {
+    
+    <app-header 
+        [isLoggedIn]="isLoggedIn()"
+        [isAdminView]="false"
+        [isEditMode]="isEditMode()"
+        (login)="authService.login()"
+        (logout)="authService.logout()"
+        (enterAdmin)="editModeService.toggleEditMode()"
+        (exitAdmin)="editModeService.toggleEditMode()"
+    />
+
+    <main>
+        <app-hero [data]="data.hero" />
+        @if(data.portfolio.enabled) {
+          <app-portfolio [data]="data.portfolio" />
+        }
+        @if(data.stats.enabled) {
+          <app-stats [data]="data.stats" />
+        }
+        @if(data.about.enabled) {
+          <app-about [data]="data.about" />
+        }
+        @if(data.tools.enabled) {
+          <app-tools [data]="data.tools" />
+        }
+        @if(data.hireMe.enabled) {
+          <app-hire-me [data]="data.hireMe" />
+        }
+    </main>
+    <app-footer [data]="data.footer" />
+
+    <!-- In-Place Editing UI -->
+    @if(isEditMode()) {
+        <app-floating-edit-bar 
+            [data]="displayData()"
+            [isDirty]="editModeService.isDirty()"
+            [isSaving]="isSaving()"
+            [lastSavedAt]="editModeService.lastSavedAt()"
+            (saveDraft)="saveDraft()"
+            (publish)="publish()"
+            (discard)="discardDraft()"
+            (exit)="editModeService.toggleEditMode()"
+        />
+        <app-inline-toolbar />
+        @if(editModeService.editingImage(); as editingImage) {
+          <app-image-editor-modal 
+            [imageData]="editingImage.data"
+            (save)="saveEditedImage($event)"
+            (close)="editModeService.closeImageEditor()"
+          />
+        }
+    }
+
+    <!-- Lightbox for Portfolio Images -->
+    @if(lightboxImageUrls(); as imageUrls) {
+      <app-lightbox 
+        [imageUrls]="imageUrls" 
+        [startIndex]="lightboxStartIndex()"
+        (close)="lightboxService.close()"
+      />
+    }
+    
+    <!-- Global UI -->
+    <app-toast />
+}

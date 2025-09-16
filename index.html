@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FIX PhotoShot - Portfolio Editor</title>
+  
+  <!-- Social Media / SEO Meta Tags -->
+  <meta property="og:title" content="FIX PhotoShot - Portfolio Editor">
+  <meta property="og:description" content="A comprehensive editor for the FIX PhotoShot portfolio website. Manage content, upload and crop images, and preview changes across devices, all in a user-friendly interface.">
+  <meta property="og:image" content="https://picsum.photos/seed/fixphotoshot/1200/630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FIX PhotoShot - Portfolio Editor">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    html {
+      font-family: 'Inter', sans-serif;
+    }
+    body { 
+      background-color: #f8fafc; /* bg-slate-50 */
+      background-image: linear-gradient(to bottom right, #f8fafc, #f1f5f9);
+      color: #1e293b; /* text-slate-800 */
+    }
+    /* Accessibility & Animation */
+    :focus-visible {
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      animation: marquee 40s linear infinite;
+    }
+
+    /* Added for section reveal animations */
+    @keyframes fadeInSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-fade-in-slide-up {
+      animation: fadeInSlideUp 0.5s ease-out forwards;
+    }
+
+    /* --- In-Place Edit Mode Styles --- */
+    .editable-highlight-base {
+      cursor: pointer;
+    }
+    .editable-highlight {
+      position: relative;
+      outline: 2px dashed rgba(67, 56, 202, 0.6);
+      outline-offset: 4px;
+      box-shadow: 0 0 0 4px white;
+      border-radius: 4px;
+      transition: outline-color 0.2s ease-in-out;
+    }
+    .editable-highlight:hover {
+        outline-color: rgba(99, 102, 241, 1);
+    }
+    .editable-selected {
+      outline: 2px solid rgba(99, 102, 241, 1);
+      outline-offset: 4px;
+    }
+    [contenteditable="true"]:focus {
+        outline: none;
+    }
+    .floating-edit-bar {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 100;
+    }
+     .inline-toolbar {
+      position: fixed;
+      z-index: 101;
+    }
+    /* Custom select with chevron for inline toolbar */
+    .custom-select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2364748b'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd' /%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.25rem center;
+      background-size: 1.25em 1.25em;
+      padding-right: 1.75rem; /* pr-7 */
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "rxjs": "https://aistudiocdn.com/rxjs@^7.8.2?conditions=es2015",
+    "rxjs/operators": "https://aistudiocdn.com/rxjs@^7.8.2/operators?conditions=es2015",
+    "rxjs/ajax": "https://aistudiocdn.com/rxjs@^7.8.2/ajax?conditions=es2015",
+    "rxjs/webSocket": "https://aistudiocdn.com/rxjs@^7.8.2/webSocket?conditions=es2015",
+    "rxjs/testing": "https://aistudiocdn.com/rxjs@^7.8.2/testing?conditions=es2015",
+    "rxjs/fetch": "https://aistudiocdn.com/rxjs@^7.8.2/fetch?conditions=es2015",
+    "@angular/compiler": "https://next.esm.sh/@angular/compiler@^20.1.6-0?external=rxjs",
+    "@angular/platform-browser": "https://next.esm.sh/@angular/platform-browser@^20.1.6-0?external=rxjs",
+    "@angular/platform-browser/animations": "https://next.esm.sh/@angular/platform-browser@^20.1.6-0/animations?external=rxjs",
+    "@angular/core": "https://next.esm.sh/@angular/core@^20.1.6-0?external=rxjs",
+    "@angular/common": "https://next.esm.sh/@angular/common@^20.1.6-0?external=rxjs",
+    "@angular/cdk/drag-drop": "https://next.esm.sh/@angular/cdk@^20.1.6-0/drag-drop?external=rxjs",
+    "@angular/common/http": "https://next.esm.sh/@angular/common@^20.1.6-0/http?external=rxjs",
+    "@angular/forms": "https://next.esm.sh/@angular/forms@^20.1.6-0?external=rxjs",
+    "lodash-es": "https://next.esm.sh/lodash-es@^4.17.21?external=rxjs"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>

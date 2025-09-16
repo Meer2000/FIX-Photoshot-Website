@@ -1,0 +1,5 @@
+{
+  "name": "FIX PhotoShot - Portfolio Editor v3",
+  "description": "A comprehensive editor for the FIX PhotoShot portfolio website. Manage content, upload and crop images, and preview changes across devices, all in a user-friendly interface.",
+  "requestFramePermissions": []
+}

@@ -1,0 +1,134 @@
+
+@if(data(); as hireMe) {
+<section id="contact" class="py-20 bg-slate-50 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Main content card -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 text-center">
+      <!-- Heading now inside the card -->
+      <h2 
+        class="text-3xl lg:text-4xl font-bold text-slate-800 mb-16 text-center"
+        appEditable
+        editableType="text"
+        [editablePath]="'hireMe.heading'"
+        [class.bg-clip-text]="hireMe.headingStyle?.isGradient"
+        [class.text-transparent]="hireMe.headingStyle?.isGradient"
+        [style.background-image]="hireMe.headingStyle?.isGradient ? 'linear-gradient(to right, ' + (hireMe.headingStyle?.gradientFrom || '#3b82f6') + ', ' + (hireMe.headingStyle?.gradientTo || '#14b8a6') + ')' : null"
+        [style.color]="hireMe.headingStyle?.isGradient ? null : hireMe.headingStyle?.color"
+        [style.font-size]="hireMe.headingStyle?.fontSize"
+        [style.font-weight]="hireMe.headingStyle?.fontWeight"
+        [style.font-style]="hireMe.headingStyle?.fontStyle"
+        [style.text-align]="hireMe.headingStyle?.textAlign"
+        [style.opacity]="hireMe.headingStyle?.opacity"
+        [style.letter-spacing]="hireMe.headingStyle?.letterSpacing"
+        [style.line-height]="hireMe.headingStyle?.lineHeight"
+        [innerHTML]="hireMe.heading"
+      >
+      </h2>
+      
+      <!-- Content -->
+      <div 
+        class="max-w-3xl mx-auto text-slate-700 leading-relaxed mb-10 text-base sm:text-lg space-y-4"
+      >
+        <p
+          appEditable
+          editableType="text"
+          [editablePath]="'hireMe.paragraph1'"
+          class="whitespace-pre-line"
+          [class.bg-clip-text]="hireMe.paragraph1Style?.isGradient"
+          [class.text-transparent]="hireMe.paragraph1Style?.isGradient"
+          [style.background-image]="hireMe.paragraph1Style?.isGradient ? 'linear-gradient(to right, ' + (hireMe.paragraph1Style?.gradientFrom || '#3b82f6') + ', ' + (hireMe.paragraph1Style?.gradientTo || '#14b8a6') + ')' : null"
+          [style.color]="hireMe.paragraph1Style?.isGradient ? null : hireMe.paragraph1Style?.color"
+          [style.font-size]="hireMe.paragraph1Style?.fontSize"
+          [style.font-weight]="hireMe.paragraph1Style?.fontWeight"
+          [style.font-style]="hireMe.paragraph1Style?.fontStyle"
+          [style.text-align]="hireMe.paragraph1Style?.textAlign"
+          [style.opacity]="hireMe.paragraph1Style?.opacity"
+          [style.letter-spacing]="hireMe.paragraph1Style?.letterSpacing"
+          [style.line-height]="hireMe.paragraph1Style?.lineHeight"
+          [innerHTML]="hireMe.paragraph1"
+        >
+        </p>
+        <p
+          appEditable
+          editableType="text"
+          [editablePath]="'hireMe.paragraph2'"
+          class="whitespace-pre-line"
+          [class.bg-clip-text]="hireMe.paragraph2Style?.isGradient"
+          [class.text-transparent]="hireMe.paragraph2Style?.isGradient"
+          [style.background-image]="hireMe.paragraph2Style?.isGradient ? 'linear-gradient(to right, ' + (hireMe.paragraph2Style?.gradientFrom || '#3b82f6') + ', ' + (hireMe.paragraph2Style?.gradientTo || '#14b8a6') + ')' : null"
+          [style.color]="hireMe.paragraph2Style?.isGradient ? null : hireMe.paragraph2Style?.color"
+          [style.font-size]="hireMe.paragraph2Style?.fontSize"
+          [style.font-weight]="hireMe.paragraph2Style?.fontWeight"
+          [style.font-style]="hireMe.paragraph2Style?.fontStyle"
+          [style.text-align]="hireMe.paragraph2Style?.textAlign"
+          [style.opacity]="hireMe.paragraph2Style?.opacity"
+          [style.letter-spacing]="hireMe.paragraph2Style?.letterSpacing"
+          [style.line-height]="hireMe.paragraph2Style?.lineHeight"
+          [innerHTML]="hireMe.paragraph2"
+        >
+        </p>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="flex flex-col items-center space-y-5">
+        <div class="relative group">
+            <a [href]="hireMe.buttonLink" target="_blank" rel="noopener noreferrer"
+               [class.pointer-events-none]="isEditMode()"
+               class="btn-shine inline-flex items-center justify-center px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg shadow-lg hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 transform hover:scale-105">
+              <span
+                appEditable
+                editableType="text"
+                [editablePath]="'hireMe.buttonText'"
+                (click)="$event.stopPropagation()"
+                [class.bg-clip-text]="hireMe.buttonTextStyle?.isGradient"
+                [class.text-transparent]="hireMe.buttonTextStyle?.isGradient"
+                [style.background-image]="hireMe.buttonTextStyle?.isGradient ? 'linear-gradient(to right, ' + (hireMe.buttonTextStyle?.gradientFrom || '#3b82f6') + ', ' + (hireMe.buttonTextStyle?.gradientTo || '#14b8a6') + ')' : null"
+                [style.color]="hireMe.buttonTextStyle?.isGradient ? null : hireMe.buttonTextStyle?.color"
+                [style.font-size]="hireMe.buttonTextStyle?.fontSize"
+                [style.font-weight]="hireMe.buttonTextStyle?.fontWeight"
+                [style.font-style]="hireMe.buttonTextStyle?.fontStyle"
+                [style.text-align]="hireMe.buttonTextStyle?.textAlign"
+                [style.opacity]="hireMe.buttonTextStyle?.opacity"
+                [style.letter-spacing]="hireMe.buttonTextStyle?.letterSpacing"
+                [style.line-height]="hireMe.buttonTextStyle?.lineHeight"
+                [innerHTML]="hireMe.buttonText"
+              ></span>
+              <!-- Upwork Logo (SVG inline for branding) -->
+              <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 535 140" class="h-5 w-auto ml-3" fill="currentColor">
+                  <title>Upwork</title>
+                  <path d="M140.107 96.628c-8.321 0-16.118-3.523-23.202-9.258l1.725-8.096.075-.3c1.536-8.62 6.409-23.089 21.402-23.089 11.244 0 20.39 9.146 20.39 20.39-.038 11.207-9.183 20.353-20.39 20.353zm0-61.395c-19.154 0-33.996 12.444-40.03 32.909-9.221-13.831-16.193-30.435-20.278-44.416H59.184v53.636c0 10.57-8.621 19.19-19.191 19.19-10.57 0-19.19-8.62-19.19-19.19V23.726H.186v53.636c-.075 21.965 17.804 39.993 39.768 39.993 21.965 0 39.844-18.028 39.844-39.993v-8.995c4.01 8.358 8.92 16.791 14.88 24.288l-12.632 59.37h21.103l9.145-43.066c8.021 5.135 17.242 8.359 27.812 8.359 22.601 0 41.005-18.516 41.005-41.118 0-22.564-18.404-40.967-41.005-40.967z" fill="#6FDA44"/>
+                  <path d="M244.043 37.557l13.306 53.636 14.656-53.636h17.466l-22.526 77.512h-17.467l-13.83-53.974-13.794 53.936h-17.466L181.86 37.52h17.467l14.655 53.636 13.306-53.636h16.754v.038zm87.22-2.324c-22.676 0-41.042 18.403-41.042 41.042 0 22.677 18.403 41.043 41.042 41.043 22.677 0 41.08-18.366 41.08-41.043 0-22.676-18.403-41.042-41.08-41.042zm0 65.218c-13.343 0-24.138-10.795-24.138-24.138 0-13.344 10.832-24.138 24.138-24.138 13.344 0 24.138 10.794 24.138 24.138 0 13.306-10.794 24.138-24.138 24.138zm90.968-45.54c-11.731 0-21.214 9.52-21.214 21.214v38.906h-17.58V37.557h17.58v11.919s7.496-11.957 22.901-11.957h5.397v17.392h-7.084zm58.997 18.366c12.48-7.047 20.952-20.428 20.952-35.758H484.6c0 12.931-10.494 23.426-23.425 23.426h-2.362V.15h-17.578V115.03h17.578V78.524h2.1c1.724 0 3.973 1.125 4.985 2.511l24.962 33.996h21.065l-30.697-41.754z"/>
+              </svg>
+            </a>
+            @if(isEditMode()) {
+                <button (click)="editLink($event)" class="absolute -top-2 -right-2 bg-white p-1.5 rounded-full shadow-md text-slate-600 hover:bg-slate-100 hover:scale-110 transition-transform z-10" title="Edit Link">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" /></svg>
+                </button>
+            }
+        </div>
+
+        <!-- Highlight small text -->
+        <p 
+            class="text-lg font-semibold"
+            appEditable
+            editableType="text"
+            [editablePath]="'hireMe.highlightText'"
+            [class.italic]="hireMe.highlightTextStyle?.fontStyle === 'italic'"
+            [class.bg-clip-text]="hireMe.highlightTextStyle?.isGradient"
+            [class.text-transparent]="hireMe.highlightTextStyle?.isGradient"
+            [style.background-image]="hireMe.highlightTextStyle?.isGradient ? 'linear-gradient(to right, ' + (hireMe.highlightTextStyle?.gradientFrom || '#3b82f6') + ', ' + (hireMe.highlightTextStyle?.gradientTo || '#14b8a6') + ')' : null"
+            [style.color]="hireMe.highlightTextStyle?.isGradient ? null : hireMe.highlightTextStyle?.color"
+            [style.font-size]="hireMe.highlightTextStyle?.fontSize"
+            [style.font-weight]="hireMe.highlightTextStyle?.fontWeight"
+            [style.text-align]="hireMe.highlightTextStyle?.textAlign"
+            [style.opacity]="hireMe.highlightTextStyle?.opacity"
+            [style.letter-spacing]="hireMe.highlightTextStyle?.letterSpacing"
+            [style.line-height]="hireMe.highlightTextStyle?.lineHeight"
+            [innerHTML]="hireMe.highlightText"
+        >
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+}

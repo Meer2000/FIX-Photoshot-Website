@@ -1,0 +1,161 @@
+<header #mainHeader 
+  [class]="'bg-white/70 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out flex items-center shadow-[0px_0px_8px_0px_rgba(0,0,0,0.3)] lg:shadow-[0px_0px_11px_0px_rgba(0,0,0,0.3)] ' + (isScrolled() ? 'h-14' : 'h-20')">
+  <div class="w-full px-4 lg:px-8">
+    <div class="flex justify-between items-center">
+      <!-- Logo -->
+      <a href="#home" (click)="handleNavClick($event, '#home')">
+        <svg [class]="'transition-all w-auto duration-300 ease-in-out ' + (isScrolled() ? 'h-11' : 'h-14')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 395.01 178.31" aria-labelledby="FIX-PhotoShot">
+          <title id="FIX-PhotoShot">FIX PhotoShot Logo</title>
+          <path d="M292.37,18.66c-9.33,3.07-17.29,9.18-22.69,17.17h39.51l-16.82-17.17Z"/>
+          <path d="M266.79,40.78c-2.97,5.94-4.66,12.63-4.66,19.73,0,2.93.29,5.8.84,8.57l28.02-28.29h-24.2Z"/>
+          <path d="M326.04,21.23c-5.98-3.05-12.75-4.78-19.92-4.78-2.7,0-5.34.26-7.9.72l27.82,28.76v-24.7Z"/>
+          <path d="M348.14,47.43c-2.9-9.34-8.82-17.35-16.62-22.88v39.74l16.62-16.85Z"/>
+          <path d="M320.02,102.3c9.19-3.06,17.04-9.08,22.41-16.93h-39.47l17.06,16.93Z"/>
+          <path d="M286.37,99.86c5.94,3,12.65,4.69,19.75,4.69,2.26,0,4.48-.17,6.65-.5l-26.4-28.16v23.97Z"/>
+          <path d="M264.42,74.5c3.04,9.09,8.96,16.86,16.68,22.22v-39.18l-16.68,16.96Z"/>
+          <path d="M345.3,80.54c3.07-6.01,4.81-12.82,4.81-20.03,0-2.42-.2-4.8-.58-7.12l-27.51,27.15h23.28Z"/>
+          <path d="M381.4,14.78V.07h-27.89v15.25h27.89v75.7h-26.48c5.68-9,8.98-19.64,8.98-31.05,0-32.16-26.12-58.32-58.23-58.32-13.92,0-26.72,4.93-36.75,13.12h-54.97v89.78h43.33c-3.74-4.07-6.98-8.62-9.62-13.53h-20.11V28.31h29.26c-5.92,9.13-9.37,20-9.37,31.66,0,32.16,26.12,58.32,58.23,58.32,14.27,0,27.34-5.17,37.48-13.73h51.86V14.78h-13.6ZM255.75,59.97c0-27.56,22.39-49.99,49.91-49.99s49.91,22.42,49.91,49.99-22.39,49.99-49.91,49.99-49.91-22.42-49.91-49.99Z"/>
+          <!-- Text part -->
+          <path d="M43.48,143.78c0,11.76-8.38,19.08-21.77,19.08h-10.1v14.55H0v-52.78h21.7c13.39,0,21.77,7.31,21.77,19.15ZM31.74,143.78c0-5.8-3.58-9.2-10.67-9.2h-9.45v18.32h9.45c7.09,0,10.67-3.39,10.67-9.12Z"/>
+          <path d="M91.33,154.18v23.22h-11.17v-21.41c0-6.56-2.86-9.57-7.81-9.57-5.37,0-9.24,3.47-9.24,10.93v20.05h-11.17v-55.94h11.17v19.6c3.01-3.17,7.31-4.83,12.25-4.83,9.1,0,15.97,5.58,15.97,17.94Z"/>
+          <path d="M99.28,157.12c0-12.21,8.95-20.88,21.2-20.88s21.13,8.67,21.13,20.88-8.88,20.88-21.13,20.88-21.2-8.67-21.2-20.88ZM130.29,157.12c0-7.01-4.23-11.23-9.81-11.23s-9.88,4.22-9.88,11.23,4.3,11.23,9.88,11.23,9.81-4.22,9.81-11.23Z"/>
+          <path d="M174.2,175.44c-2.29,1.73-5.66,2.56-9.1,2.56-9.1,0-14.4-4.9-14.4-14.55v-16.66h-5.95v-9.05h5.95v-9.88h11.17v9.88h9.6v9.05h-9.6v16.51c0,3.47,1.79,5.35,4.8,5.35,1.65,0,3.29-.53,4.51-1.51l3.01,8.29Z"/>
+          <path d="M176.7,157.12c0-12.21,8.95-20.88,21.2-20.88s21.13,8.67,21.13,20.88-8.88,20.88-21.13,20.88-21.2-8.67-21.2-20.88ZM207.72,157.12c0-7.01-4.23-11.23-9.81-11.23s-9.88,4.22-9.88,11.23,4.3,11.23,9.88,11.23,9.81-4.22,9.81-11.23Z"/>
+          <!-- Blue styled text -->
+          <path fill="#006fe3" d="M223.6,172.2l3.94-9.2c4.23,3.24,10.53,5.5,16.55,5.5,6.88,0,9.67-2.41,9.67-5.65,0-9.88-29.15-3.09-29.15-22.69,0-8.97,6.88-16.44,21.13-16.44,6.3,0,12.75,1.58,17.4,4.67l-3.58,9.27c-4.66-2.79-9.45-4.15-13.9-4.15-6.88,0-9.53,2.71-9.53,6.03,0,9.73,29.15,3.02,29.15,22.39,0,8.82-6.95,16.36-21.27,16.36-7.95,0-15.97-2.49-20.41-6.11Z"/>
+          <path fill="#006fe3" d="M312.13,154.18v23.22h-11.17v-21.41c0-6.56-2.87-9.57-7.81-9.57-5.37,0-9.24,3.47-9.24,10.93v20.05h-11.17v-55.94h11.17v19.6c3.01-3.17,7.31-4.83,12.25-4.83,9.1,0,15.97,5.58,15.97,17.94Z"/>
+          <path fill="#006fe3" d="M320.08,157.12c0-12.21,8.95-20.88,21.2-20.88s21.13,8.67,21.13,20.88-8.88,20.88-21.13,20.88-21.2-8.67-21.2-20.88ZM351.1,157.12c0-7.01-4.23-11.23-9.81-11.23s-9.88,4.22-9.88,11.23,4.3,11.23,9.88,11.23,9.81-4.22,9.81-11.23Z"/>
+          <path fill="#006fe3" d="M395,175.44c-2.29,1.73-5.66,2.56-9.1,2.56-9.1,0-14.4-4.9-14.4-14.55v-16.66h-5.94v-9.05h5.94v-9.88h11.17v9.88h9.6v9.05h-9.6v16.51c0,3.47,1.79,5.35,4.8,5.35,1.65,0,3.29-.53,4.51-1.51l3.01,8.29Z"/>
+          <path fill="#006fe3" d="M15.98,28.76v27.32h41.54v14.11H15.98v34.37H0V14.78h62.8v13.98H15.98Z"/>
+          <path fill="#006fe3" d="M80.74,14.78h15.98v89.77h-15.98V14.78Z"/>
+          <path fill="#006fe3" d="M176.6,104.55l-23.35-34.11-23.1,34.11h-18.19l31.95-45.78-30.23-43.99h18.07l22,31.93,21.75-31.93h17.33l-30.11,43.35,32.32,46.43h-18.43Z"/>
+        </svg>
+      </a>
+
+      <!-- Desktop Nav (Centered) -->
+      @if (!isAdminView() && !isEditMode()) {
+        <nav class="hidden md:flex items-center gap-4 lg:gap-8">
+          <a href="#portfolio" (click)="handleNavClick($event, '#portfolio')" class="relative text-slate-800 hover:text-blue-600 transition-colors duration-200 font-medium text-lg lg:text-xl after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-blue-600 after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100" [class.text-blue-600]="activeSection() === 'portfolio'" [class.after:scale-x-100]="activeSection() === 'portfolio'">Portfolio</a>
+          <a href="#stats" (click)="handleNavClick($event, '#stats')" class="relative text-slate-800 hover:text-blue-600 transition-colors duration-200 font-medium text-lg lg:text-xl after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-blue-600 after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100" [class.text-blue-600]="activeSection() === 'stats'" [class.after:scale-x-100]="activeSection() === 'stats'">Experience</a>
+          <a href="#about" (click)="handleNavClick($event, '#about')" class="relative text-slate-800 hover:text-blue-600 transition-colors duration-200 font-medium text-lg lg:text-xl after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-blue-600 after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100" [class.text-blue-600]="activeSection() === 'about'" [class.after:scale-x-100]="activeSection() === 'about'">About</a>
+          <a href="#tools" (click)="handleNavClick($event, '#tools')" class="relative text-slate-800 hover:text-blue-600 transition-colors duration-200 font-medium text-lg lg:text-xl after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-blue-600 after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100" [class.text-blue-600]="activeSection() === 'tools'" [class.after:scale-x-100]="activeSection() === 'tools'">Tools</a>
+          <a href="#contact" (click)="handleNavClick($event, '#contact')" class="relative text-slate-800 hover:text-blue-600 transition-colors duration-200 font-medium text-lg lg:text-xl after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-blue-600 after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100" [class.text-blue-600]="activeSection() === 'contact'" [class.after:scale-x-100]="activeSection() === 'contact'">Contact</a>
+        </nav>
+      } @else {
+        <div class="hidden md:block"></div> <!-- Placeholder for centering -->
+      }
+
+      <!-- Actions (Right Aligned) -->
+      <div class="flex items-center gap-4">
+        @if (isLoggedIn()) {
+          <div class="relative">
+            @if (isAdminView()) {
+              <button (click)="exitAdmin.emit()" type="button" class="bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2 px-5 rounded-lg transition-all duration-200 transform hover:-translate-y-px active:translate-y-0">
+                Back to Website
+              </button>
+            } @else if (isEditMode()) {
+               <!-- In Edit Mode, the floating bar is the primary control -->
+            }
+            @else {
+               <div class="flex items-center gap-2">
+                 <button (click)="onEnterAdmin()" type="button" class="hidden sm:flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2 px-5 rounded-lg transition-all duration-200 transform hover:-translate-y-px active:translate-y-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg>
+                    <span>Edit Site</span>
+                 </button>
+                 <button (click)="onLogout()" type="button" class="hidden sm:block p-2 text-slate-600 hover:bg-slate-200/60 rounded-full transition-colors duration-200" title="Logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" /></svg>
+                 </button>
+               </div>
+            }
+          </div>
+        } @else {
+          <button (click)="login.emit()" type="button" class="hidden md:inline-block bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2 px-5 rounded-lg transition-all duration-200 transform hover:-translate-y-px active:translate-y-0">
+            Login
+          </button>
+        }
+        
+        <!-- Mobile Menu Button -->
+        @if(!isAdminView() && !isEditMode()) {
+        <div class="md:hidden">
+          <button (click)="toggleMobileMenu()" type="button" class="p-2 rounded-md text-slate-800 hover:bg-slate-100">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+          </button>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu Drawer -->
+<!-- Overlay -->
+<div class="fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300"
+      [class.opacity-100]="isMobileMenuOpen()"
+      [class.opacity-0]="!isMobileMenuOpen()"
+      [class.pointer-events-auto]="isMobileMenuOpen()"
+      [class.pointer-events-none]="!isMobileMenuOpen()"
+      (click)="toggleMobileMenu()"></div>
+
+<!-- Drawer -->
+<div class="fixed top-0 right-0 h-full w-72 bg-white/70 backdrop-blur-lg z-50 shadow-2xl p-6 transform transition-transform duration-300 md:hidden flex flex-col"
+      [class.translate-x-0]="isMobileMenuOpen()"
+      [class.translate-x-full]="!isMobileMenuOpen()">
+  
+  <!-- Menu Header -->
+  <div class="flex justify-between items-center pb-4 border-b border-slate-200/80">
+    <h2 class="text-2xl font-bold text-slate-800">Menu</h2>
+    <button (click)="toggleMobileMenu()" class="p-2 text-slate-500 hover:bg-slate-200/60 rounded-full transition-colors">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="mt-8 flex-grow">
+    <div class="flex flex-col gap-2">
+      <a href="#home" (click)="handleNavClick($event, '#home')" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-800 hover:bg-blue-100/50 hover:text-blue-700 transition-colors duration-200 text-lg font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+        <span>Home</span>
+      </a>
+      <a href="#portfolio" (click)="handleNavClick($event, '#portfolio')" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-800 hover:bg-blue-100/50 hover:text-blue-700 transition-colors duration-200 text-lg font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+        <span>Portfolio</span>
+      </a>
+      <a href="#stats" (click)="handleNavClick($event, '#stats')" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-800 hover:bg-blue-100/50 hover:text-blue-700 transition-colors duration-200 text-lg font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <span>Experience</span>
+      </a>
+      <a href="#about" (click)="handleNavClick($event, '#about')" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-800 hover:bg-blue-100/50 hover:text-blue-700 transition-colors duration-200 text-lg font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+        <span>About</span>
+      </a>
+      <a href="#tools" (click)="handleNavClick($event, '#tools')" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-800 hover:bg-blue-100/50 hover:text-blue-700 transition-colors duration-200 text-lg font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+        <span>Tools</span>
+      </a>
+      <a href="#contact" (click)="handleNavClick($event, '#contact')" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-800 hover:bg-blue-100/50 hover:text-blue-700 transition-colors duration-200 text-lg font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+        <span>Contact</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Actions -->
+  <div class="mt-auto pt-4 border-t border-slate-200/80">
+    @if (isLoggedIn()) {
+      <div class="flex flex-col gap-2">
+        <button (click)="onEnterAdmin()" type="button" class="flex items-center justify-center gap-3 bg-slate-800 hover:bg-slate-700 text-white font-semibold py-3 px-5 rounded-xl transition-all duration-200 w-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg>
+            <span>Edit Site</span>
+        </button>
+        <button (click)="onLogout()" type="button" class="flex items-center justify-center gap-3 bg-slate-200/60 hover:bg-slate-300/80 text-slate-700 font-semibold py-3 px-5 rounded-xl transition-all duration-200 w-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" /></svg>
+            <span>Logout</span>
+        </button>
+      </div>
+    } @else {
+      <button (click)="login.emit()" type="button" class="flex items-center justify-center gap-3 bg-slate-800 hover:bg-slate-700 text-white font-semibold py-3 px-5 rounded-xl transition-all duration-200 w-full">
+        Login
+      </button>
+    }
+  </div>
+</div>

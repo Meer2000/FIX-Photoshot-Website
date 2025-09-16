@@ -1,0 +1,29 @@
+
+
+<footer class="bg-slate-900 text-slate-400 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-center items-center">
+        @if(data(); as footer) {
+            <p 
+                class="text-base sm:text-lg text-center"
+                [style.text-align]="footer.copyrightTextStyle?.textAlign"
+            >&copy; {{ currentYear }} <span
+                appEditable
+                editableType="text"
+                [editablePath]="'footer.copyrightText'"
+                [class.bg-clip-text]="footer.copyrightTextStyle?.isGradient"
+                [class.text-transparent]="footer.copyrightTextStyle?.isGradient"
+                [style.background-image]="footer.copyrightTextStyle?.isGradient ? 'linear-gradient(to right, ' + (footer.copyrightTextStyle?.gradientFrom || '#3b82f6') + ', ' + (footer.copyrightTextStyle?.gradientTo || '#14b8a6') + ')' : null"
+                [style.color]="footer.copyrightTextStyle?.isGradient ? null : footer.copyrightTextStyle?.color"
+                [style.font-size]="footer.copyrightTextStyle?.fontSize"
+                [style.font-weight]="footer.copyrightTextStyle?.fontWeight"
+                [style.font-style]="footer.copyrightTextStyle?.fontStyle"
+                [style.opacity]="footer.copyrightTextStyle?.opacity"
+                [style.letter-spacing]="footer.copyrightTextStyle?.letterSpacing"
+                [style.line-height]="footer.copyrightTextStyle?.lineHeight"
+                [innerHTML]="footer.copyrightText"
+            ></span></p>
+        }
+    </div>
+  </div>
+</footer>

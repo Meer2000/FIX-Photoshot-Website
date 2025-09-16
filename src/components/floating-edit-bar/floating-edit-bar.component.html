@@ -1,0 +1,95 @@
+<div class="floating-edit-bar" (click)="$event.stopPropagation()">
+  <div class="flex items-center gap-4 bg-white/90 backdrop-blur-lg p-2 rounded-full shadow-2xl border border-slate-200">
+    <!-- Status -->
+    <div class="flex items-center gap-2 px-3">
+       @switch (statusClass()) {
+        @case ('text-amber-600') {
+            <div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>
+        }
+        @case ('text-green-600') {
+            <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+        }
+        @case ('text-blue-600') {
+             <div class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></div>
+        }
+        @default {
+            <div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div>
+        }
+      }
+      <span [class]="'text-sm font-medium ' + statusClass()">{{ statusText() }}</span>
+      @if(lastSavedAt() && !isDirty() && !isSaving()) {
+        <span class="text-xs text-slate-400">at {{ lastSavedAt() | date:'shortTime' }}</span>
+      }
+    </div>
+
+    <!-- Actions -->
+    <div class="relative">
+      <button (click)="toggleLayoutMenu()" title="Section Visibility" class="p-2 bg-slate-100 rounded-full text-slate-700 hover:bg-slate-200 hover:scale-105 active:scale-95 transition-all duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 5h10v2H5V5zm0 4h10v2H5V9zm0 4h10v2H5v-2z" /></svg>
+      </button>
+
+      @if(isLayoutMenuOpen()) {
+        <!-- Backdrop -->
+        <div class="fixed inset-0 z-0" (click)="toggleLayoutMenu()"></div>
+        <!-- Menu -->
+        <div class="absolute top-full right-0 mt-3 w-64 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 z-10 animate-fade-in-down">
+          <h3 class="font-semibold text-slate-800 mb-3">Section Visibility</h3>
+          <div class="space-y-3">
+            @if(data(); as pageData) {
+              <div class="flex items-center justify-between">
+                <label for="portfolio-toggle" class="font-medium text-slate-700 select-none">Portfolio</label>
+                <input type="checkbox" id="portfolio-toggle" class="relative h-5 w-10 appearance-none rounded-[10px] bg-slate-300 before:absolute before:left-[2px] before:top-[2px] before:h-4 before:w-4 before:rounded-full before:bg-white before:shadow-sm before:transition-all before:duration-200 checked:bg-blue-600 checked:before:left-[22px]" [checked]="pageData.portfolio.enabled" (change)="updateSectionVisibility('portfolio.enabled', $event)">
+              </div>
+              <div class="flex items-center justify-between">
+                <label for="stats-toggle" class="font-medium text-slate-700 select-none">Experience</label>
+                <input type="checkbox" id="stats-toggle" class="relative h-5 w-10 appearance-none rounded-[10px] bg-slate-300 before:absolute before:left-[2px] before:top-[2px] before:h-4 before:w-4 before:rounded-full before:bg-white before:shadow-sm before:transition-all before:duration-200 checked:bg-blue-600 checked:before:left-[22px]" [checked]="pageData.stats.enabled" (change)="updateSectionVisibility('stats.enabled', $event)">
+              </div>
+              <div class="flex items-center justify-between">
+                <label for="about-toggle" class="font-medium text-slate-700 select-none">About</label>
+                <input type="checkbox" id="about-toggle" class="relative h-5 w-10 appearance-none rounded-[10px] bg-slate-300 before:absolute before:left-[2px] before:top-[2px] before:h-4 before:w-4 before:rounded-full before:bg-white before:shadow-sm before:transition-all before:duration-200 checked:bg-blue-600 checked:before:left-[22px]" [checked]="pageData.about.enabled" (change)="updateSectionVisibility('about.enabled', $event)">
+              </div>
+              <div class="flex items-center justify-between">
+                <label for="tools-toggle" class="font-medium text-slate-700 select-none">Tools</label>
+                <input type="checkbox" id="tools-toggle" class="relative h-5 w-10 appearance-none rounded-[10px] bg-slate-300 before:absolute before:left-[2px] before:top-[2px] before:h-4 before:w-4 before:rounded-full before:bg-white before:shadow-sm before:transition-all before:duration-200 checked:bg-blue-600 checked:before:left-[22px]" [checked]="pageData.tools.enabled" (change)="updateSectionVisibility('tools.enabled', $event)">
+              </div>
+              <div class="flex items-center justify-between">
+                <label for="hireMe-toggle" class="font-medium text-slate-700 select-none">Contact</label>
+                <input type="checkbox" id="hireMe-toggle" class="relative h-5 w-10 appearance-none rounded-[10px] bg-slate-300 before:absolute before:left-[2px] before:top-[2px] before:h-4 before:w-4 before:rounded-full before:bg-white before:shadow-sm before:transition-all before:duration-200 checked:bg-blue-600 checked:before:left-[22px]" [checked]="pageData.hireMe.enabled" (change)="updateSectionVisibility('hireMe.enabled', $event)">
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <button (click)="saveDraft.emit()" [disabled]="!isDirty() || isSaving()" title="Save Draft (Ctrl+S)" class="p-2 bg-slate-100 rounded-full text-slate-700 hover:bg-slate-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100 transition-all duration-200">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z" /></svg>
+    </button>
+    <button (click)="publish.emit()" [disabled]="isSaving()" class="btn-shine px-4 py-2 text-sm font-semibold rounded-full bg-gradient-to-br from-green-500 to-emerald-600 text-white active:scale-95 disabled:from-slate-400 disabled:to-slate-500 transition-all duration-200 shadow-md">
+      Publish
+    </button>
+    <div class="w-px h-6 bg-slate-200"></div>
+    <button (click)="discard.emit()" [disabled]="!isDirty()" title="Discard Changes" class="p-2 rounded-full text-slate-500 hover:bg-red-100 hover:text-red-600 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:scale-100 transition-all duration-200">
+       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 011 1v6a1 1 0 11-2 0V9a1 1 0 011-1zm4 0a1 1 0 011 1v6a1 1 0 11-2 0V9a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+    </button>
+    <button (click)="exit.emit()" title="Exit Edit Mode" class="p-2 rounded-full bg-slate-800 text-white hover:bg-slate-900 hover:scale-105 active:scale-95 transition-all duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+    </button>
+  </div>
+</div>
+
+<style>
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-down {
+  animation: fade-in-down 0.2s ease-out forwards;
+}
+</style>

@@ -1,0 +1,188 @@
+
+ @if(data(); as stats) {
+<section id="stats" class="py-20 bg-slate-50 overflow-hidden relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div 
+      [class]="'transition-all duration-1000 ease-out mb-20 ' + (isVisible() ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12')"
+    >
+      <h2 class="text-3xl lg:text-4xl font-bold text-slate-800 flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 text-center">
+        <span
+          appEditable
+          editableType="text"
+          [editablePath]="'stats.sectionHeading'"
+          [class.bg-clip-text]="stats.sectionHeadingStyle?.isGradient"
+          [class.text-transparent]="stats.sectionHeadingStyle?.isGradient"
+          [style.background-image]="stats.sectionHeadingStyle?.isGradient ? 'linear-gradient(to right, ' + (stats.sectionHeadingStyle?.gradientFrom || '#3b82f6') + ', ' + (stats.sectionHeadingStyle?.gradientTo || '#14b8a6') + ')' : null"
+          [style.color]="stats.sectionHeadingStyle?.isGradient ? null : stats.sectionHeadingStyle?.color"
+          [style.font-size]="stats.sectionHeadingStyle?.fontSize"
+          [style.font-weight]="stats.sectionHeadingStyle?.fontWeight"
+          [style.font-style]="stats.sectionHeadingStyle?.fontStyle"
+          [style.text-align]="stats.sectionHeadingStyle?.textAlign"
+          [style.opacity]="stats.sectionHeadingStyle?.opacity"
+          [style.letter-spacing]="stats.sectionHeadingStyle?.letterSpacing"
+          [style.line-height]="stats.sectionHeadingStyle?.lineHeight"
+          [innerHTML]="stats.sectionHeading"
+        ></span>
+        <svg width="127" height="38" viewBox="0 0 530 120" class="w-auto h-7 sm:h-8 md:h-9 lg:h-10" preserveAspectRatio="xMidYMid">
+            <title>Upwork</title>
+            <path d="M140.107 96.628c-8.321 0-16.118-3.523-23.202-9.258l1.725-8.096.075-.3c1.536-8.62 6.409-23.089 21.402-23.089 11.244 0 20.39 9.146 20.39 20.39-.038 11.207-9.183 20.353-20.39 20.353zm0-61.395c-19.154 0-33.996 12.444-40.03 32.909-9.221-13.831-16.193-30.435-20.278-44.416H59.184v53.636c0 10.57-8.621 19.19-19.191 19.19-10.57 0-19.19-8.62-19.19-19.19V23.726H.186v53.636c-.075 21.965 17.804 39.993 39.768 39.993 21.965 0 39.844-18.028 39.844-39.993v-8.995c4.01 8.358 8.92 16.791 14.88 24.288l-12.632 59.37h21.103l9.145-43.066c8.021 5.135 17.242 8.359 27.812 8.359 22.601 0 41.005-18.516 41.005-41.118 0-22.564-18.404-40.967-41.005-40.967z" fill="#6FDA44"/>
+            <path d="M244.043 37.557l13.306 53.636 14.656-53.636h17.466l-22.526 77.512h-17.467l-13.83-53.974-13.794 53.936h-17.466L181.86 37.52h17.467l14.655 53.636 13.306-53.636h16.754v.038zm87.22-2.324c-22.676 0-41.042 18.403-41.042 41.042 0 22.677 18.403 41.043 41.042 41.043 22.677 0 41.08-18.366 41.08-41.043 0-22.676-18.403-41.042-41.08-41.042zm0 65.218c-13.343 0-24.138-10.795-24.138-24.138 0-13.344 10.832-24.138 24.138-24.138 13.344 0 24.138 10.794 24.138 24.138 0 13.306-10.794 24.138-24.138 24.138zm90.968-45.54c-11.731 0-21.214 9.52-21.214 21.214v38.906h-17.58V37.557h17.58v11.919s7.496-11.957 22.901-11.957h5.397v17.392h-7.084zm58.997 18.366c12.48-7.047 20.952-20.428 20.952-35.758H484.6c0 12.931-10.494 23.426-23.425 23.426h-2.362V.15h-17.578V115.03h17.578V78.524h2.1c1.724 0 3.973 1.125 4.985 2.511l24.962 33.996h21.065l-30.697-41.754z"/>
+        </svg>
+      </h2>
+    </div>
+
+    <div 
+      [class]="'bg-white rounded-2xl shadow-xl p-8 md:p-12 transition-all duration-700 ease-out ' + (isVisible() ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12')"
+    >
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left Side: Main Experience -->
+        <div [class]="'text-center lg:text-left transition-all duration-1000 ease-out ' + (isVisible() ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12')">
+          <h2 class="text-9xl md:text-[10rem] font-extrabold inline-flex items-baseline leading-none">
+            <span
+              appEditable
+              editableType="text"
+              [editablePath]="'stats.mainStatValue'"
+              [class.bg-clip-text]="stats.mainStatValueStyle?.isGradient"
+              [class.text-transparent]="stats.mainStatValueStyle?.isGradient"
+              [style.background-image]="stats.mainStatValueStyle?.isGradient ? 'linear-gradient(to right, ' + (stats.mainStatValueStyle?.gradientFrom || '#3b82f6') + ', ' + (stats.mainStatValueStyle?.gradientTo || '#14b8a6') + ')' : null"
+              [style.color]="stats.mainStatValueStyle?.isGradient ? null : stats.mainStatValueStyle?.color"
+              [style.font-size]="stats.mainStatValueStyle?.fontSize"
+              [style.font-weight]="stats.mainStatValueStyle?.fontWeight"
+              [style.font-style]="stats.mainStatValueStyle?.fontStyle"
+              [style.text-align]="stats.mainStatValueStyle?.textAlign"
+              [style.opacity]="stats.mainStatValueStyle?.opacity"
+              [style.letter-spacing]="stats.mainStatValueStyle?.letterSpacing"
+              [style.line-height]="stats.mainStatValueStyle?.lineHeight"
+              [innerHTML]="stats.mainStatValue"
+            ></span>
+            <span 
+              class="text-8xl md:text-[8rem] -ml-3 md:-ml-4"
+              appEditable
+              editableType="text"
+              [editablePath]="'stats.mainStatSuffix'"
+              [class.bg-clip-text]="stats.mainStatSuffixStyle?.isGradient"
+              [class.text-transparent]="stats.mainStatSuffixStyle?.isGradient"
+              [style.background-image]="stats.mainStatSuffixStyle?.isGradient ? 'linear-gradient(to right, ' + (stats.mainStatSuffixStyle?.gradientFrom || '#3b82f6') + ', ' + (stats.mainStatSuffixStyle?.gradientTo || '#14b8a6') + ')' : null"
+              [style.color]="stats.mainStatSuffixStyle?.isGradient ? null : stats.mainStatSuffixStyle?.color"
+              [style.font-size]="stats.mainStatSuffixStyle?.fontSize"
+              [style.font-weight]="stats.mainStatSuffixStyle?.fontWeight"
+              [style.font-style]="stats.mainStatSuffixStyle?.fontStyle"
+              [style.text-align]="stats.mainStatSuffixStyle?.textAlign"
+              [style.opacity]="stats.mainStatSuffixStyle?.opacity"
+              [style.letter-spacing]="stats.mainStatSuffixStyle?.letterSpacing"
+              [style.line-height]="stats.mainStatSuffixStyle?.lineHeight"
+              [innerHTML]="stats.mainStatSuffix"
+            ></span>
+          </h2>
+          <p 
+            class="mt-4 text-lg sm:text-xl font-semibold text-slate-700"
+            appEditable
+            editableType="text"
+            [editablePath]="'stats.heading'"
+            [class.bg-clip-text]="stats.headingStyle?.isGradient"
+            [class.text-transparent]="stats.headingStyle?.isGradient"
+            [style.background-image]="stats.headingStyle?.isGradient ? 'linear-gradient(to right, ' + (stats.headingStyle?.gradientFrom || '#3b82f6') + ', ' + (stats.headingStyle?.gradientTo || '#14b8a6') + ')' : null"
+            [style.color]="stats.headingStyle?.isGradient ? null : stats.headingStyle?.color"
+            [style.font-size]="stats.headingStyle?.fontSize"
+            [style.font-weight]="stats.headingStyle?.fontWeight"
+            [style.font-style]="stats.headingStyle?.fontStyle"
+            [style.text-align]="stats.headingStyle?.textAlign"
+            [style.opacity]="stats.headingStyle?.opacity"
+            [style.letter-spacing]="stats.headingStyle?.letterSpacing"
+            [style.line-height]="stats.headingStyle?.lineHeight"
+            [innerHTML]="stats.heading"
+            >
+          </p>
+          <p 
+            class="mt-4 text-slate-600 leading-relaxed text-base sm:text-lg"
+            appEditable
+            editableType="text"
+            [editablePath]="'stats.paragraph'"
+            [class.bg-clip-text]="stats.paragraphStyle?.isGradient"
+            [class.text-transparent]="stats.paragraphStyle?.isGradient"
+            [style.background-image]="stats.paragraphStyle?.isGradient ? 'linear-gradient(to right, ' + (stats.paragraphStyle?.gradientFrom || '#3b82f6') + ', ' + (stats.paragraphStyle?.gradientTo || '#14b8a6') + ')' : null"
+            [style.color]="stats.paragraphStyle?.isGradient ? null : stats.paragraphStyle?.color"
+            [style.font-size]="stats.paragraphStyle?.fontSize"
+            [style.font-weight]="stats.paragraphStyle?.fontWeight"
+            [style.font-style]="stats.paragraphStyle?.fontStyle"
+            [style.text-align]="stats.paragraphStyle?.textAlign"
+            [style.opacity]="stats.paragraphStyle?.opacity"
+            [style.letter-spacing]="stats.paragraphStyle?.letterSpacing"
+            [style.line-height]="stats.paragraphStyle?.lineHeight"
+            [innerHTML]="stats.paragraph"
+            >
+          </p>
+        </div>
+
+        <!-- Right Side: Grid Stats -->
+        <div [class]="'grid grid-cols-2 gap-6 sm:gap-8 transition-all duration-1000 ease-out ' + (isVisible() ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12')">
+          @for(item of animatedItems(); track item.id; let i = $index) {
+            <div 
+              [class]="'bg-slate-100/70 p-4 sm:p-6 rounded-2xl text-center transition-all duration-300 ease-out hover:bg-slate-200/60 hover:shadow-md ' + (isVisible() ? 'animate-fade-in-slide-up' : 'opacity-0')"
+              [style.animation-delay]="i * 150 + 'ms'"
+            >
+              <p class="text-4xl sm:text-5xl font-bold">
+                <span
+                  appEditable
+                  editableType="text"
+                  [editablePath]="'stats.items.' + i + '.value'"
+                  [class.bg-clip-text]="item.valueStyle?.isGradient"
+                  [class.text-transparent]="item.valueStyle?.isGradient"
+                  [style.background-image]="item.valueStyle?.isGradient ? 'linear-gradient(to right, ' + (item.valueStyle?.gradientFrom || '#3b82f6') + ', ' + (item.valueStyle?.gradientTo || '#14b8a6') + ')' : null"
+                  [style.color]="item.valueStyle?.isGradient ? null : item.valueStyle?.color"
+                  [style.font-size]="item.valueStyle?.fontSize"
+                  [style.font-weight]="item.valueStyle?.fontWeight"
+                  [style.font-style]="item.valueStyle?.fontStyle"
+                  [style.text-align]="item.valueStyle?.textAlign"
+                  [style.opacity]="item.valueStyle?.opacity"
+                  [style.letter-spacing]="item.valueStyle?.letterSpacing"
+                  [style.line-height]="item.valueStyle?.lineHeight"
+                  [innerHTML]="item.displayValue"
+                ></span><span 
+                  class="text-3xl sm:text-4xl"
+                  appEditable
+                  editableType="text"
+                  [editablePath]="'stats.items.' + i + '.suffix'"
+                  (click)="$event.stopPropagation()"
+                  [class.bg-clip-text]="item.suffixStyle?.isGradient"
+                  [class.text-transparent]="item.suffixStyle?.isGradient"
+                  [style.background-image]="item.suffixStyle?.isGradient ? 'linear-gradient(to right, ' + (item.suffixStyle?.gradientFrom || '#3b82f6') + ', ' + (item.suffixStyle?.gradientTo || '#14b8a6') + ')' : null"
+                  [style.color]="item.suffixStyle?.isGradient ? null : item.suffixStyle?.color"
+                  [style.font-size]="item.suffixStyle?.fontSize"
+                  [style.font-weight]="item.suffixStyle?.fontWeight"
+                  [style.font-style]="item.suffixStyle?.fontStyle"
+                  [style.text-align]="item.suffixStyle?.textAlign"
+                  [style.opacity]="item.suffixStyle?.opacity"
+                  [style.letter-spacing]="item.suffixStyle?.letterSpacing"
+                  [style.line-height]="item.suffixStyle?.lineHeight"
+                  [innerHTML]="item.suffix"
+                ></span>
+              </p>
+              <p 
+                class="mt-2 text-sm sm:text-base font-medium text-slate-600"
+                appEditable
+                editableType="text"
+                [editablePath]="'stats.items.' + i + '.label'"
+                [class.bg-clip-text]="item.labelStyle?.isGradient"
+                [class.text-transparent]="item.labelStyle?.isGradient"
+                [style.background-image]="item.labelStyle?.isGradient ? 'linear-gradient(to right, ' + (item.labelStyle?.gradientFrom || '#3b82f6') + ', ' + (item.labelStyle?.gradientTo || '#14b8a6') + ')' : null"
+                [style.color]="item.labelStyle?.isGradient ? null : item.labelStyle?.color"
+                [style.font-size]="item.labelStyle?.fontSize"
+                [style.font-weight]="item.labelStyle?.fontWeight"
+                [style.font-style]="item.labelStyle?.fontStyle"
+                [style.text-align]="item.labelStyle?.textAlign"
+                [style.opacity]="item.labelStyle?.opacity"
+                [style.letter-spacing]="item.labelStyle?.letterSpacing"
+                [style.line-height]="item.labelStyle?.lineHeight"
+                [innerHTML]="item.label"
+              ></p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+}
