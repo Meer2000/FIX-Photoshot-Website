@@ -22,12 +22,17 @@
       "@/*": [
         "./*"
       ]
-    }
+    },
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
   "files": [
     "./index.tsx"
   ],
   "angularCompilerOptions": {
-    "disableTypeScriptVersionCheck": true
+    "disableTypeScriptVersionCheck": true,
+    "strictInjectionParameters": true,
+    "strictTemplates": true
   }
 }
